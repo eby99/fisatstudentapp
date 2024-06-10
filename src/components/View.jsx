@@ -5,12 +5,19 @@ import Navbar from './Navbar'
 const View = () => {
     const[data, changeData] = useState([])
     const fetchData = () =>{
-        axios.get("https://anishpdm.github.io/dummy-api-new/student.json").then(
+        axios.get("https://courseapplogix.onrender.com/getdata").then(
             (response) => {
                 console.log(response.data)
                 changeData(response.data)
             }
-        ).catch().finally()
+        ).catch((error) => {
+            console.error("Error fetching data:", error);
+          
+            alert("Failed to fetch data. Please try again later.");
+        }).finally(() => {
+            console.log("Fetch attempt finished.");
+           
+        });
     }
         useEffect(()=>{fetchData()},[])
   return (
@@ -24,18 +31,22 @@ const View = () => {
                         <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">AlbumId</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">url</th>
-                    <th scope="col">Thumb Url</th>
+                    {/* <th scope="col">ID</th> */}
+                    <th scope="col">First Name</th>
+                    <th scope="col">Second Name</th>
+                    <th scope="col">College</th>
+                    <th scope="col">DOB</th>
+                    <th scope="col">Course</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Address</th>
                   </tr>
                 </thead>
                 <tbody>
                             {data.map(
                                 (value, index) => {
                                     return <tr>
-                                        <th scope="row">{value._id}</th>
+                                        {/* <th scope="row">{value._id}</th> */}
                                         <td>{value.firstname}</td>
                                         <td>{value.lastname}</td>
                                         <td>{value.college}</td>

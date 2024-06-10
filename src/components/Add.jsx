@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
+import axios from 'axios'
 
 const Add = () => {
         const [data, setData] = useState(
                 {
-                        "_id":"",
+                      
                         "firstname":"",
                         "lastname":"",
                         "college":"",
@@ -20,7 +21,24 @@ const Add = () => {
                 setData({...data, [event.target.name]: event.target.value})
         }
         const readValue = () => {
-                console.log(data)
+                
+                axios.post("https://courseapplogix.onrender.com/addstudents",data).then(
+                        (response) => {
+                                console.log(response.data)
+                                if (response.data.status=="success") {
+                                        alert("Added");
+                                
+                                } else {
+                                        alert(response.data);
+                                }
+
+                        }
+                ).catch(
+                        (error)=>{
+                        alert("error");
+                }
+                
+                )
         }
   return (
     <div>
@@ -30,11 +48,7 @@ const Add = () => {
             <div className="row">
                 <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                  <div className="row g-3">
-                    <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
-                     
-                      <label htmlFor="" className="label form-label">ID</label>
-                        <input type="text" className="input form-control" name='_id' value={data._id} onChange={inputHandler}/>
-                    </div>
+                   
                     <br></br>
                     <div className="col col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 col-xl-6 col-xxl-6">
                      
